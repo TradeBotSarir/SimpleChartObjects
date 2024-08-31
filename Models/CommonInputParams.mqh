@@ -36,6 +36,7 @@ public:
     long m_chartID;
     int m_subWindow;
     long m_zOrder;
+    string m_fullName;
     /*------------------------------------------- Methods -------------------------------------------*/
     //*  Constructor
     CommonInputParams();
@@ -57,7 +58,7 @@ public:
         m_zOrder = i_commonInputParams.m_zOrder;
     }
     /*------------------------------------------- Getters -------------------------------------------*/
-
+    string getFullName() { return m_fullName; }
     /*------------------------------------------- Setters -------------------------------------------*/
     //* common setters
     void setSymbol(string i_symbol) { m_symbol = i_symbol; }

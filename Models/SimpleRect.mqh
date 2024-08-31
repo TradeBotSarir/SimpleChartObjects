@@ -177,17 +177,18 @@ void SimpleRect::put(const double i_price_1, const datetime i_time_1, const doub
 {
     color bgColor = calcBgColor(0, i_price_1, i_price_2);
     color borderColor = calcBorderColor(0, i_price_1, i_price_2);
+    m_fullName = m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name;
     // Draw the Rect on the chart
-    ObjectCreate(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJ_RECTANGLE, m_subWindow, i_time_1, i_price_1, i_time_2, i_price_2);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_WIDTH, m_width);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_SELECTABLE, m_selectable);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_SELECTED, m_selected);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_BACK, m_inBackground);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_HIDDEN, m_hiddenInList);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_ZORDER, m_zOrder);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_COLOR, borderColor);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_BGCOLOR, bgColor);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_STYLE, m_style);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time_1) + TimeToString(i_time_2) + i_name, OBJPROP_FILL, m_fill);
+    ObjectCreate(m_chartID, m_fullName, OBJ_RECTANGLE, m_subWindow, i_time_1, i_price_1, i_time_2, i_price_2);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_WIDTH, m_width);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_SELECTABLE, m_selectable);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_SELECTED, m_selected);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_BACK, m_inBackground);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_HIDDEN, m_hiddenInList);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_ZORDER, m_zOrder);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_COLOR, borderColor);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_BGCOLOR, bgColor);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_STYLE, m_style);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_FILL, m_fill);
     ChartRedraw(m_chartID);
 }

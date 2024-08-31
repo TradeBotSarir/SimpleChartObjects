@@ -105,14 +105,15 @@ void SimpleHorizontalArrow::put(const datetime i_time, double i_value, string i_
     {
         time2 = i_time - m_lengthIndex * PeriodSeconds();
     }
+    m_fullName = m_pref + m_prefAfter + TimeToString(i_time) + i_name;
     // Draw the horizontal arrow on the chart
-    ObjectCreate(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJ_ARROWED_LINE, m_subWindow, i_time, i_value, time2, i_value);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_COLOR, m_color);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_WIDTH, m_width);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_SELECTABLE, m_selectable);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_SELECTED, m_selected);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_BACK, m_inBackground);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_HIDDEN, m_hiddenInList);
-    ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_ZORDER, m_zOrder);
+    ObjectCreate(m_chartID, m_fullName, OBJ_ARROWED_LINE, m_subWindow, i_time, i_value, time2, i_value);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_COLOR, m_color);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_WIDTH, m_width);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_SELECTABLE, m_selectable);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_SELECTED, m_selected);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_BACK, m_inBackground);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_HIDDEN, m_hiddenInList);
+    ObjectSetInteger(m_chartID, m_fullName, OBJPROP_ZORDER, m_zOrder);
     ChartRedraw(m_chartID);
 }
