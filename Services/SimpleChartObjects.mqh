@@ -17,6 +17,7 @@
 #include "../Models/SimpleHorizontalArrow.mqh"
 #include "../Models/SimpleRect.mqh"
 #include "../Models/ArrowSlTp.mqh"
+#include "../Models/SimpleHorizontalLine.mqh"
 /*=========================================== class ===========================================*/
 class SimpleChartObjects
 {
@@ -31,6 +32,7 @@ public:
     SimpleHorizontalArrow horizontalArrow;
     SimpleRect rect;
     ArrowSlTp arrowSlTp;
+    SimpleHorizontalLine horizontalLine;
 
     /*------------------------------------------- Methods -------------------------------------------*/
     //*  Constructor
