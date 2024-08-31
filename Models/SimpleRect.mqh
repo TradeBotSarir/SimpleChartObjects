@@ -14,23 +14,15 @@
 
 /*=========================================== Includes ===========================================*/
 #include "../Enums/ENUM_SIMPLE_RECT_COLOR_MODE.mqh"
+#include "CommonInputParams.mqh"
 /*=========================================== class ===========================================*/
-class SimpleRect
+class SimpleRect : public CommonInputParams
 {
 private:
     /*------------------------------------------- Parameters -------------------------------------------*/
-    //* Common Parameters
-    string m_pref;
-    string m_prefAfter;
-    int m_width;
-    bool m_selectable;
-    bool m_selected;
-    bool m_inBackground;
-    bool m_hiddenInList;
-    long m_chartID;
-    int m_subWindow;
-    long m_zOrder;
+
     // * Specific Parameters
+    int m_width;
     bool m_fill;
     color m_borderColor;
     color m_bgColor;
@@ -63,15 +55,7 @@ public:
     {
         m_pref = i_pref;
     }
-    void setPrefAfter(string i_prefAfter) { m_prefAfter = i_prefAfter; }
-    void setWidth(int i_width) { m_width = i_width; }
-    void setSelectable(bool i_selectable) { m_selectable = i_selectable; }
-    void setSelected(bool i_selected) { m_selected = i_selected; }
-    void setInBackground(bool i_inBackground) { m_inBackground = i_inBackground; }
-    void setHiddenInList(bool i_hiddenInList) { m_hiddenInList = i_hiddenInList; }
-    void setChartID(long i_chartID) { m_chartID = i_chartID; }
-    void setSubWindow(int i_subWindow) { m_subWindow = i_subWindow; }
-    void setZOrder(long i_zOrder) { m_zOrder = i_zOrder; }
+
     //* Specific setters
     void setFill(bool i_fill) { m_fill = i_fill; }
     void setBorderColor(color i_borderColor) { m_borderColor = i_borderColor; }
@@ -82,6 +66,20 @@ public:
     void setBuyRectBorderColor(color i_buyRectBorderColor) { m_buyRectBorderColor = i_buyRectBorderColor; }
     void setSellRectBorderColor(color i_sellRectBorderColor) { m_sellRectBorderColor = i_sellRectBorderColor; }
     void setColorMode(ENUM_SIMPLE_RECT_COLOR_MODE i_colorMode) { m_colorMode = i_colorMode; }
+    void setWidth(int i_width) { m_width = i_width; }
+    //* Set Common Parameters
+    void setCommpnParams(CommonInputParams &i_commonInputParams)
+    {
+        m_pref = i_commonInputParams.m_pref;
+        m_prefAfter = i_commonInputParams.m_prefAfter;
+        m_selectable = i_commonInputParams.m_selectable;
+        m_selected = i_commonInputParams.m_selected;
+        m_inBackground = i_commonInputParams.m_inBackground;
+        m_hiddenInList = i_commonInputParams.m_hiddenInList;
+        m_chartID = i_commonInputParams.m_chartID;
+        m_subWindow = i_commonInputParams.m_subWindow;
+        m_zOrder = i_commonInputParams.m_zOrder;
+    };
 
     /*------------------------------------------- Getters -------------------------------------------*/
 };
@@ -92,16 +90,7 @@ public:
 SimpleRect::SimpleRect()
 {
     //* common setters
-    m_pref = "sarir_";
     m_prefAfter = "_simpleRect";
-    m_width = 1;
-    m_selectable = false;
-    m_selected = false;
-    m_inBackground = false;
-    m_hiddenInList = true;
-    m_chartID = 0;
-    m_subWindow = 0;
-    m_zOrder = 0;
     //* Specific setters
     m_fill = false;
     m_borderColor = clrBlack;

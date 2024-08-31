@@ -15,6 +15,7 @@
 /*=========================================== Includes ===========================================*/
 #include "SimpleHorizontalArrow.mqh"
 #include "../Enums/ENUM_SLTP_COLOR_MODE.mqh"
+
 /*=========================================== class ===========================================*/
 class ArrowSlTp
 {
@@ -22,20 +23,23 @@ private:
     /*------------------------------------------- Parameters -------------------------------------------*/
     SimpleHorizontalArrow m_slArrow;
     SimpleHorizontalArrow m_tpArrow;
-    /*------------------------------------------- Methods -------------------------------------------*/
-    color calcSlColor(int i_index);
-    color calcTpColor(int i_index);
-
-public:
-    /*------------------------------------------- Parameters -------------------------------------------*/
     //* Common Parameters
 
     // * Specific Parameters
     ENUM_SLTP_COLOR_MODE m_sltpColorMode;
     color m_solidSlColor;
     color m_solidTpColor;
-    color slColors[];
-    color tpColors[];
+    color m_slColors[];
+    color m_tpColors[];
+    bool m_showTps[];
+    bool m_showSls[];
+    /*------------------------------------------- Methods -------------------------------------------*/
+    color calcSlColor(int i_index);
+    color calcTpColor(int i_index);
+
+public:
+    /*------------------------------------------- Parameters -------------------------------------------*/
+
     /*------------------------------------------- Methods -------------------------------------------*/
     //*  Constructor
     ArrowSlTp();
@@ -43,8 +47,17 @@ public:
     //* Destructor
     ~ArrowSlTp();
 
+    //* Set Common Parameters
+    void setCommpnParams(CommonInputParams &i_commonInputParams)
+    {
+        m_slArrow.setCommpnParams(i_commonInputParams);
+        m_tpArrow.setCommpnParams(i_commonInputParams);
+    };
+
     /*=========================================== put SLTP , Method One ===========================================*/
     void put(const datetime i_time, double &iSls[], double &iTps[], string i_name = "");
+    /*=========================================== put SLTP , Method Two ===========================================*/
+    void put(const int i_itr, const int i_ratesTotal, double &iSls[], double &iTps[], string i_name = "");
     /*------------------------------------------- Getters -------------------------------------------*/
 
     /*------------------------------------------- Setters -------------------------------------------*/
@@ -110,15 +123,23 @@ public:
     };
     void setSlColors(color &i_slColors[])
     {
-        ArrayCopy(slColors, i_slColors);
+        ArrayCopy(m_slColors, i_slColors);
     };
     void setTpColors(color &i_tpColors[])
     {
-        ArrayCopy(tpColors, i_tpColors);
+        ArrayCopy(m_tpColors, i_tpColors);
     };
     void setSltpColorMode(ENUM_SLTP_COLOR_MODE i_sltpColorMode)
     {
         m_sltpColorMode = i_sltpColorMode;
+    };
+    void setShowTps(bool &i_showTps[])
+    {
+        ArrayCopy(m_showTps, i_showTps);
+    };
+    void setShowSls(bool &i_showSls[])
+    {
+        ArrayCopy(m_showSls, i_showSls);
     };
 };
 
@@ -146,23 +167,48 @@ void ArrowSlTp::put(const datetime i_time, double &iSls[], double &iTps[], strin
 {
     for (int i = 0; i < ArraySize(iSls); i++)
     {
-        if (iSls[i] != 0)
+        if (iSls[i] != 0 && m_showSls[i])
         {
             color slColor = calcSlColor(i);
             m_slArrow.setColor(slColor);
-            m_slArrow.put(i_time, iSls[i], i_name);
+            m_slArrow.put(i_time, iSls[i], i_name + string(i));
         }
     }
     for (int i = 0; i < ArraySize(iTps); i++)
     {
-        if (iTps[i] != 0)
+        if (iTps[i] != 0 && m_showTps[i])
         {
             color tpColor = calcTpColor(i);
             m_tpArrow.setColor(tpColor);
-            m_tpArrow.put(i_time, iTps[i], i_name);
+            m_tpArrow.put(i_time, iTps[i], i_name + string(i));
         }
     }
 };
+
+/**================================================================================================
+ * *                                      put SLTP , Method Two
+ *================================================================================================**/
+void ArrowSlTp::put(const int i_itr, const int i_ratesTotal, double &iSls[], double &iTps[], string i_name = "")
+{
+    for (int i = 0; i < ArraySize(iSls); i++)
+    {
+        if (iSls[i] != 0 && m_showSls[i])
+        {
+            color slColor = calcSlColor(i);
+            m_slArrow.setColor(slColor);
+            m_slArrow.put(iTime(m_slArrow.m_symbol, m_slArrow.m_timeFrame, i_ratesTotal - i_itr - 1), iSls[i], i_name + string(i));
+        }
+    }
+    for (int i = 0; i < ArraySize(iTps); i++)
+    {
+        if (iTps[i] != 0 && m_showTps[i])
+        {
+            color tpColor = calcTpColor(i);
+            m_tpArrow.setColor(tpColor);
+            m_slArrow.put(iTime(m_slArrow.m_symbol, m_slArrow.m_timeFrame, i_ratesTotal - i_itr - 1), iTps[i], i_name + string(i));
+        }
+    }
+}
 
 /**================================================================================================
  **                                      calcSlColor
@@ -179,9 +225,9 @@ color ArrowSlTp::calcSlColor(int i_index)
         return m_solidSlColor;
     case SIMPLE_SLTP_ARRAY_COLOR:
     {
-        if (ArraySize(slColors) <= i_index && slColors[i_index] != NULL)
+        if (ArraySize(m_slColors) <= i_index && m_slColors[i_index] != NULL)
         {
-            return slColors[i_index];
+            return m_slColors[i_index];
         }
         return m_solidSlColor;
     }
@@ -205,13 +251,13 @@ color ArrowSlTp::calcTpColor(int i_index)
         return m_solidTpColor;
     case SIMPLE_SLTP_ARRAY_COLOR:
     {
-        if (ArraySize(tpColors) <= i_index && tpColors[i_index] != NULL)
+        if (ArraySize(m_tpColors) <= i_index && m_tpColors[i_index] != NULL)
         {
-            return tpColors[i_index];
+            return m_tpColors[i_index];
         }
         return m_solidTpColor;
     }
     default:
         return m_solidTpColor;
     }
-}
+};

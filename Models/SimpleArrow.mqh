@@ -13,28 +13,20 @@
  *================================================================================================**/
 
 /*=========================================== Includes ===========================================*/
-
+#include "CommonInputParams.mqh"
+#include "../Enums/ENUM_SLTP_COLOR_MODE.mqh"
 /*=========================================== class ===========================================*/
-class SimpleArrow
+class SimpleArrow : public CommonInputParams
 {
 private:
     /*------------------------------------------- Parameters -------------------------------------------*/
-    //* Common Parameters
-    string m_pref;
-    string m_prefAfter;
-    int m_width;
-    bool m_selectable;
-    bool m_selected;
-    bool m_inBackground;
-    bool m_hiddenInList;
-    long m_chartID;
-    int m_subWindow;
-    long m_zOrder;
+
     // * Specific Parameters
     color m_buyColor;
     color m_sellColor;
     int m_buyCode;
     int m_sellCode;
+    int m_width;
 
     /*------------------------------------------- Methods -------------------------------------------*/
 
@@ -52,40 +44,25 @@ public:
     void put(const datetime i_time, double i_value, int i_trendType, string i_name = "");
 
     /*------------------------------------------- Setters -------------------------------------------*/
-    //* common setters
-    void setPref(string i_pref) { m_pref = i_pref; }
-    void setPrefAfter(string i_prefAfter) { m_prefAfter = i_prefAfter; }
-    void setWidth(int i_width) { m_width = i_width; }
-    void setSelectable(bool i_selectable) { m_selectable = i_selectable; }
-    void setSelected(bool i_selected) { m_selected = i_selected; }
-    void setInBackground(bool i_inBackground) { m_inBackground = i_inBackground; }
-    void setHiddenInList(bool i_hiddenInList) { m_hiddenInList = i_hiddenInList; }
-    void setChartID(long i_chartID) { m_chartID = i_chartID; }
-    void setSubWindow(int i_subWindow) { m_subWindow = i_subWindow; }
-    void setZOrder(long i_zOrder) { m_zOrder = i_zOrder; }
 
     //* Specific setters
     void setBuyColor(color i_buyColor) { m_buyColor = i_buyColor; }
     void setSellColor(color i_sellColor) { m_sellColor = i_sellColor; }
     void setBuyCode(int i_buyCode) { m_buyCode = i_buyCode; }
     void setSellCode(int i_sellCode) { m_sellCode = i_sellCode; }
-
-    void setAllProperties(string i_pref, int i_width, color i_buyColor, color i_sellColor, int i_buyCode, int i_sellCode, bool i_inBackground, bool i_hiddenInList, string i_prefAfter, long i_chartID, int i_subWindow, long i_zOrder, bool i_selectable, bool i_selected)
+    void setWidth(int i_width) { m_width = i_width; }
+    //* Set Common Parameters
+    void setCommpnParams(CommonInputParams &i_commonInputParams)
     {
-        m_pref = i_pref;
-        m_width = i_width;
-        m_buyColor = i_buyColor;
-        m_sellColor = i_sellColor;
-        m_buyCode = i_buyCode;
-        m_sellCode = i_sellCode;
-        m_inBackground = i_inBackground;
-        m_hiddenInList = i_hiddenInList;
-        m_prefAfter = i_prefAfter;
-        m_chartID = i_chartID;
-        m_subWindow = i_subWindow;
-        m_zOrder = i_zOrder;
-        m_selectable = i_selectable;
-        m_selected = i_selected;
+        m_pref = i_commonInputParams.m_pref;
+        m_prefAfter = i_commonInputParams.m_prefAfter;
+        m_selectable = i_commonInputParams.m_selectable;
+        m_selected = i_commonInputParams.m_selected;
+        m_inBackground = i_commonInputParams.m_inBackground;
+        m_hiddenInList = i_commonInputParams.m_hiddenInList;
+        m_chartID = i_commonInputParams.m_chartID;
+        m_subWindow = i_commonInputParams.m_subWindow;
+        m_zOrder = i_commonInputParams.m_zOrder;
     }
 
     /*------------------------------------------- Getters -------------------------------------------*/
@@ -97,21 +74,14 @@ public:
 SimpleArrow::SimpleArrow()
 {
     //* common setters
-    m_pref = "sarir_";
     m_prefAfter = "_simpleArrow";
-    m_width = 1;
-    m_selectable = false;
-    m_selected = false;
-    m_inBackground = false;
-    m_hiddenInList = true;
-    m_chartID = 0;
-    m_subWindow = 0;
-    m_zOrder = 0;
+
     //* Specific setters
     m_buyColor = clrGreen;
     m_sellColor = clrRed;
     m_buyCode = 233;
     m_sellCode = 234;
+    m_width = 1;
 };
 
 /**================================================================================================
@@ -123,7 +93,7 @@ SimpleArrow::~SimpleArrow() {
 };
 
 /**================================================================================================
- **                                      put
+ **                                           put
  *?  put Arrow , Method One
  ** input : datetime
  * uses just time to draw arrow
@@ -161,4 +131,4 @@ void SimpleArrow::put(const datetime i_time, double i_value, int i_trendType, st
     ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_HIDDEN, m_hiddenInList);
     ObjectSetInteger(m_chartID, m_pref + m_prefAfter + TimeToString(i_time) + i_name, OBJPROP_ZORDER, m_zOrder);
     ChartRedraw(m_chartID);
-}
+};

@@ -14,6 +14,9 @@
 
 /*=========================================== Includes ===========================================*/
 #include "../Models/SimpleArrow.mqh"
+#include "../Models/SimpleHorizontalArrow.mqh"
+#include "../Models/SimpleRect.mqh"
+#include "../Models/ArrowSlTp.mqh"
 /*=========================================== class ===========================================*/
 class SimpleChartObjects
 {
@@ -25,6 +28,10 @@ private:
 public:
     /*------------------------------------------- Parameters -------------------------------------------*/
     SimpleArrow arrow;
+    SimpleHorizontalArrow horizontalArrow;
+    SimpleRect rect;
+    ArrowSlTp arrowSlTp;
+
     /*------------------------------------------- Methods -------------------------------------------*/
     //*  Constructor
     SimpleChartObjects();
