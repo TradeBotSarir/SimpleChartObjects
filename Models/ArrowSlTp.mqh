@@ -39,7 +39,8 @@ private:
 
 public:
     /*------------------------------------------- Parameters -------------------------------------------*/
-
+    string slNames[];
+    string tpNames[];
     /*------------------------------------------- Methods -------------------------------------------*/
     //*  Constructor
     ArrowSlTp();
@@ -59,6 +60,8 @@ public:
     /*=========================================== put SLTP , Method Two ===========================================*/
     void put(const int i_itr, const int i_ratesTotal, double &iSls[], double &iTps[], string i_name = "");
     /*------------------------------------------- Getters -------------------------------------------*/
+    string getSlNames(int i_index);
+    string getTpNames(int i_index);
 
     /*------------------------------------------- Setters -------------------------------------------*/
     //* common setters
@@ -165,13 +168,16 @@ ArrowSlTp::~ArrowSlTp() {
  *================================================================================================**/
 void ArrowSlTp::put(const datetime i_time, double &iSls[], double &iTps[], string i_name = "")
 {
+    ArrayResize(slNames, ArraySize(iSls));
+    ArrayResize(tpNames, ArraySize(iTps));
     for (int i = 0; i < ArraySize(iSls); i++)
     {
         if (iSls[i] != 0 && m_showSls[i])
         {
             color slColor = calcSlColor(i);
             m_slArrow.setColor(slColor);
-            m_slArrow.put(i_time, iSls[i], i_name + string(i));
+            slNames[i] = i_name + "sl" + string(i);
+            m_slArrow.put(i_time, iSls[i], slNames[i]);
         }
     }
     for (int i = 0; i < ArraySize(iTps); i++)
@@ -180,7 +186,8 @@ void ArrowSlTp::put(const datetime i_time, double &iSls[], double &iTps[], strin
         {
             color tpColor = calcTpColor(i);
             m_tpArrow.setColor(tpColor);
-            m_tpArrow.put(i_time, iTps[i], i_name + string(i));
+            tpNames[i] = i_name + "tp" + string(i);
+            m_tpArrow.put(i_time, iTps[i], tpNames[i]);
         }
     }
 };
@@ -190,13 +197,16 @@ void ArrowSlTp::put(const datetime i_time, double &iSls[], double &iTps[], strin
  *================================================================================================**/
 void ArrowSlTp::put(const int i_itr, const int i_ratesTotal, double &iSls[], double &iTps[], string i_name = "")
 {
+    ArrayResize(slNames, ArraySize(iSls));
+    ArrayResize(tpNames, ArraySize(iTps));
     for (int i = 0; i < ArraySize(iSls); i++)
     {
         if (iSls[i] != 0 && m_showSls[i])
         {
             color slColor = calcSlColor(i);
             m_slArrow.setColor(slColor);
-            m_slArrow.put(iTime(m_slArrow.m_symbol, m_slArrow.m_timeFrame, i_ratesTotal - i_itr - 1), iSls[i], i_name + string(i));
+            slNames[i] = "sl" + i_name + string(i);
+            m_slArrow.put(iTime(m_slArrow.m_symbol, m_slArrow.m_timeFrame, i_ratesTotal - i_itr - 1), iSls[i], slNames[i]);
         }
     }
     for (int i = 0; i < ArraySize(iTps); i++)
@@ -205,7 +215,8 @@ void ArrowSlTp::put(const int i_itr, const int i_ratesTotal, double &iSls[], dou
         {
             color tpColor = calcTpColor(i);
             m_tpArrow.setColor(tpColor);
-            m_slArrow.put(iTime(m_slArrow.m_symbol, m_slArrow.m_timeFrame, i_ratesTotal - i_itr - 1), iTps[i], i_name + string(i));
+            tpNames[i] = "tp" + i_name + string(i);
+            m_slArrow.put(iTime(m_slArrow.m_symbol, m_slArrow.m_timeFrame, i_ratesTotal - i_itr - 1), iTps[i], tpNames[i]);
         }
     }
 }
@@ -260,4 +271,25 @@ color ArrowSlTp::calcTpColor(int i_index)
     default:
         return m_solidTpColor;
     }
+};
+
+/**================================================================================================
+ * *                                      Getters
+ *================================================================================================**/
+string ArrowSlTp::getSlNames(int i_index)
+{
+    if (ArraySize(slNames) <= i_index && slNames[i_index] != NULL)
+    {
+        return slNames[i_index];
+    }
+    return "";
+};
+
+string ArrowSlTp::getTpNames(int i_index)
+{
+    if (ArraySize(tpNames) <= i_index && tpNames[i_index] != NULL)
+    {
+        return tpNames[i_index];
+    }
+    return "";
 };
