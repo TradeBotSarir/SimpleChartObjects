@@ -40,6 +40,13 @@ public:
 
     //* Destructor
     ~SimpleChartObjects();
+
+    //* Delete object
+    void deleteObject(const string i_name, const long i_chartId = 0)
+    {
+        ObjectDelete(0, i_name);
+    };
+
     /*------------------------------------------- Getters -------------------------------------------*/
 };
 
