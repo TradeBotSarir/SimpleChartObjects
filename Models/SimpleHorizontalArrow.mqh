@@ -48,19 +48,6 @@ public:
     void setLeftToRight(bool i_leftToRight) { m_leftToRight = i_leftToRight; }
     void setLengthIndex(int i_lengthIndex) { m_lengthIndex = i_lengthIndex; }
     void setWidth(int i_width) { m_width = i_width; }
-    //* Set Common Parameters
-    void setCommpnParams(CommonInputParams &i_commonInputParams)
-    {
-        m_pref = i_commonInputParams.m_pref;
-        m_prefAfter = i_commonInputParams.m_prefAfter;
-        m_selectable = i_commonInputParams.m_selectable;
-        m_selected = i_commonInputParams.m_selected;
-        m_inBackground = i_commonInputParams.m_inBackground;
-        m_hiddenInList = i_commonInputParams.m_hiddenInList;
-        m_chartID = i_commonInputParams.m_chartID;
-        m_subWindow = i_commonInputParams.m_subWindow;
-        m_zOrder = i_commonInputParams.m_zOrder;
-    }
 
     /*------------------------------------------- Getters -------------------------------------------*/
 };

@@ -55,20 +55,6 @@ public:
     void setRayLeft(bool i_rayLeft) { m_rayLeft = i_rayLeft; }
     void setLineStyle(ENUM_LINE_STYLE i_lineStyle) { m_lineStyle = i_lineStyle; }
 
-    //* Set Common Parameters
-    void setCommpnParams(CommonInputParams &i_commonInputParams)
-    {
-        m_pref = i_commonInputParams.m_pref;
-        m_prefAfter = i_commonInputParams.m_prefAfter;
-        m_selectable = i_commonInputParams.m_selectable;
-        m_selected = i_commonInputParams.m_selected;
-        m_inBackground = i_commonInputParams.m_inBackground;
-        m_hiddenInList = i_commonInputParams.m_hiddenInList;
-        m_chartID = i_commonInputParams.m_chartID;
-        m_subWindow = i_commonInputParams.m_subWindow;
-        m_zOrder = i_commonInputParams.m_zOrder;
-    }
-
     /*------------------------------------------- Getters -------------------------------------------*/
 };
 

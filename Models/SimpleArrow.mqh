@@ -51,19 +51,6 @@ public:
     void setBuyCode(int i_buyCode) { m_buyCode = i_buyCode; }
     void setSellCode(int i_sellCode) { m_sellCode = i_sellCode; }
     void setWidth(int i_width) { m_width = i_width; }
-    //* Set Common Parameters
-    void setCommpnParams(CommonInputParams &i_commonInputParams)
-    {
-        m_pref = i_commonInputParams.m_pref;
-        m_prefAfter = i_commonInputParams.m_prefAfter;
-        m_selectable = i_commonInputParams.m_selectable;
-        m_selected = i_commonInputParams.m_selected;
-        m_inBackground = i_commonInputParams.m_inBackground;
-        m_hiddenInList = i_commonInputParams.m_hiddenInList;
-        m_chartID = i_commonInputParams.m_chartID;
-        m_subWindow = i_commonInputParams.m_subWindow;
-        m_zOrder = i_commonInputParams.m_zOrder;
-    }
 
     /*------------------------------------------- Getters -------------------------------------------*/
 };

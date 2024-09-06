@@ -47,6 +47,25 @@ public:
         return ObjectDelete(i_chartId, i_name);
     };
 
+    //* Set Prefix
+    void setPref(const string i_prefix)
+    {
+        arrow.setPref(i_prefix);
+        horizontalArrow.setPref(i_prefix);
+        rect.setPref(i_prefix);
+        arrowSlTp.setPref(i_prefix);
+        horizontalLine.setPref(i_prefix);
+    };
+
+    //* Set Common Parameters
+    void setCommpnParams(CommonInputParams &i_commonInputParams)
+    {
+        arrow.setCommpnParams(i_commonInputParams);
+        horizontalArrow.setCommpnParams(i_commonInputParams);
+        rect.setCommpnParams(i_commonInputParams);
+        arrowSlTp.setCommpnParams(i_commonInputParams);
+        horizontalLine.setCommpnParams(i_commonInputParams);
+    };
     /*------------------------------------------- Getters -------------------------------------------*/
 };
 
