@@ -15,14 +15,13 @@
 /*=========================================== Includes ===========================================*/
 
 /*=========================================== class ===========================================*/
-class CommonInputParams
-{
-private:
+class CommonInputParams {
+   private:
     /*------------------------------------------- Parameters -------------------------------------------*/
 
     /*------------------------------------------- Methods -------------------------------------------*/
-protected:
-public:
+   protected:
+   public:
     /*------------------------------------------- Parameters -------------------------------------------*/
     //* Common Parameters
     string m_symbol;
@@ -45,8 +44,7 @@ public:
     ~CommonInputParams();
 
     //* Copy Constructor
-    CommonInputParams(const CommonInputParams &i_commonInputParams)
-    {
+    CommonInputParams(const CommonInputParams &i_commonInputParams) {
         m_pref = i_commonInputParams.m_pref;
         m_prefAfter = i_commonInputParams.m_prefAfter;
         m_selectable = i_commonInputParams.m_selectable;
@@ -73,8 +71,7 @@ public:
     void setSubWindow(int i_subWindow) { m_subWindow = i_subWindow; }
     void setZOrder(long i_zOrder) { m_zOrder = i_zOrder; }
     //* Set Common Parameters
-    void setCommpnParams(CommonInputParams &i_commonInputParams)
-    {
+    void setCommpnParams(CommonInputParams &i_commonInputParams) {
         m_pref = i_commonInputParams.m_pref;
         m_prefAfter = i_commonInputParams.m_prefAfter;
         m_selectable = i_commonInputParams.m_selectable;
@@ -84,14 +81,14 @@ public:
         m_chartID = i_commonInputParams.m_chartID;
         m_subWindow = i_commonInputParams.m_subWindow;
         m_zOrder = i_commonInputParams.m_zOrder;
+        m_chartID = i_commonInputParams.m_chartID;
     }
 };
 
 /**================================================================================================
  * *                                      Normal   Constructor
  *================================================================================================**/
-CommonInputParams::CommonInputParams()
-{
+CommonInputParams::CommonInputParams() {
     //* common setters
     m_pref = "sarir_";
     m_prefAfter = "_simpleObject";

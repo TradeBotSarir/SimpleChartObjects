@@ -15,9 +15,8 @@
 /*=========================================== Includes ===========================================*/
 #include "CommonInputParams.mqh"
 /*=========================================== class ===========================================*/
-class SimpleHorizontalArrow : public CommonInputParams
-{
-private:
+class SimpleHorizontalArrow : public CommonInputParams {
+   private:
     /*------------------------------------------- Parameters -------------------------------------------*/
 
     // * Specific Parameters
@@ -28,7 +27,7 @@ private:
 
     /*------------------------------------------- Methods -------------------------------------------*/
 
-public:
+   public:
     /*------------------------------------------- Parameters -------------------------------------------*/
 
     /*------------------------------------------- Methods -------------------------------------------*/
@@ -39,7 +38,7 @@ public:
     ~SimpleHorizontalArrow();
 
     /*=========================================== put horizontal Arrow , Method One ===========================================*/
-    void put(const datetime i_time, double i_value, string i_name = "");
+    void put(const datetime i_time, double i_value, const long i_chartId = NULL, string i_name = "");
 
     /*------------------------------------------- Setters -------------------------------------------*/
 
@@ -55,8 +54,7 @@ public:
 /**================================================================================================
  * *                                      Normal   Constructor
  *================================================================================================**/
-SimpleHorizontalArrow::SimpleHorizontalArrow()
-{
+SimpleHorizontalArrow::SimpleHorizontalArrow() {
     //* common setters
     m_prefAfter = "_SimpleHorizontalArrow";
 
@@ -81,15 +79,12 @@ SimpleHorizontalArrow::~SimpleHorizontalArrow() {
  * uses just time to draw arrow
  *================================================================================================**/
 
-void SimpleHorizontalArrow::put(const datetime i_time, double i_value, string i_name = "")
-{
+void SimpleHorizontalArrow::put(const datetime i_time, double i_value, const long i_chartId = NULL, string i_name = "") {
     datetime time2;
-    if (m_leftToRight)
-    {
+    m_chartID = i_chartId == NULL ? m_chartID : i_chartId;
+    if (m_leftToRight) {
         time2 = i_time + m_lengthIndex * PeriodSeconds();
-    }
-    else
-    {
+    } else {
         time2 = i_time - m_lengthIndex * PeriodSeconds();
     }
     m_fullName = m_pref + m_prefAfter + TimeToString(i_time) + i_name;

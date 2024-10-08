@@ -13,12 +13,11 @@
  *================================================================================================**/
 
 /*=========================================== Includes ===========================================*/
-#include "CommonInputParams.mqh"
 #include "../Enums/ENUM_SLTP_COLOR_MODE.mqh"
+#include "CommonInputParams.mqh"
 /*=========================================== class ===========================================*/
-class SimpleArrow : public CommonInputParams
-{
-private:
+class SimpleArrow : public CommonInputParams {
+   private:
     /*------------------------------------------- Parameters -------------------------------------------*/
 
     // * Specific Parameters
@@ -30,7 +29,7 @@ private:
 
     /*------------------------------------------- Methods -------------------------------------------*/
 
-public:
+   public:
     /*------------------------------------------- Parameters -------------------------------------------*/
 
     /*------------------------------------------- Methods -------------------------------------------*/
@@ -41,7 +40,7 @@ public:
     ~SimpleArrow();
 
     /*=========================================== put Arrow , Method One ===========================================*/
-    void put(const datetime i_time, double i_value, int i_trendType, string i_name = "");
+    void put(const datetime i_time, double i_value, int i_trendType, const long i_chartId = NULL, string i_name = "");
 
     /*------------------------------------------- Setters -------------------------------------------*/
 
@@ -58,8 +57,7 @@ public:
 /**================================================================================================
  * *                                      Normal   Constructor
  *================================================================================================**/
-SimpleArrow::SimpleArrow()
-{
+SimpleArrow::SimpleArrow() {
     //* common setters
     m_prefAfter = "_simpleArrow";
 
@@ -86,26 +84,22 @@ SimpleArrow::~SimpleArrow() {
  * uses just time to draw arrow
  *================================================================================================**/
 
-void SimpleArrow::put(const datetime i_time, double i_value, int i_trendType, string i_name = "")
-{
-
+void SimpleArrow::put(const datetime i_time, double i_value, int i_trendType, const long i_chartId = NULL, string i_name = "") {
     // Set arrow properties based on signal type
     int arrowCode = 0;
     color arrowColor = clrBlack;
     ENUM_ARROW_ANCHOR arrow_anchor = ANCHOR_TOP;
-    if (i_trendType == 1)
-    {
-        arrowCode = m_buyCode; // Up arrow code
+    if (i_trendType == 1) {
+        arrowCode = m_buyCode;  // Up arrow code
         arrowColor = m_buyColor;
         arrow_anchor = ANCHOR_TOP;
-    }
-    else if (i_trendType == -1)
-    {
-        arrowCode = m_sellCode; // Down arrow code
+    } else if (i_trendType == -1) {
+        arrowCode = m_sellCode;  // Down arrow code
         arrowColor = m_sellColor;
         arrow_anchor = ANCHOR_BOTTOM;
     }
     m_fullName = m_pref + m_prefAfter + TimeToString(i_time) + i_name;
+    m_chartID = i_chartId == NULL ? m_chartID : i_chartId;
     // Draw the arrow on the chart
     ObjectCreate(m_chartID, m_fullName, OBJ_ARROW, m_subWindow, i_time, i_value);
     ObjectSetInteger(m_chartID, m_fullName, OBJPROP_ANCHOR, arrow_anchor);
